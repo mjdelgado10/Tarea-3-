@@ -17,7 +17,7 @@ MalignoBenigno = np.genfromtxt('WDBC.dat', dtype='str', usecols=1, delimiter=','
 #Separar variables de los datos, maligno y benigno.
 variables = np.genfromtxt('WDBC.dat', usecols=columnas, delimiter=',')
 
-#tama�o de las variables 
+#tamano de las variables 
 n,m = np.shape(variables)
 
 #Inicializacion para empezar la covarianza
@@ -71,6 +71,17 @@ autovectores_copia = np.abs(autovectores)
 variables_mas_importantes = np.argmax(autovectores_copia, 0)
 #imprime los parametros mas importantes
 print("Con los 4 autovectores mayores, los parametros mas importantes (en orden) son ", variables_mas_importantes[0:4])
+
+
+# Coordenadas PC1 Y PC2
+PC11 = np.dot(variables, autovectores[:,0])
+PC2 = np.dot(variables, autovectores[:,1])
+
+#grafica 
+fig, ax = plt.subplots()
+ax.plot(PC1[MalignoBenigno=='M'], PC2[MalignoBenigno=='M'], marker='_', linestyle='')
+ax.plot(PC1[MalignoBenigno=='B'], PC2[MalignoBenigno=='B'], marker='+', ls='')
+fig.savefig('DelgadoMaria_PCA.pdf')
 
 
 # In[ ]:
