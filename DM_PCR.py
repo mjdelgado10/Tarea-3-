@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 #Regresion PCR
@@ -37,11 +37,26 @@ for i in range(m):
 #Una vez se llena la lista, se crea el array
 Covarianza = np.array(Covarianza)
 
-#Imprime el valor de la covarianza
+#Imprime el valor de la matriz de  covarianza
 
 print(Covarianza, '\n\n', np.cov(variables.T))
 
 
+
+#Autovalores y autovectores de la  matriz de covarianza
+Valores_Vectores = np.linalg.eig(Covarianza) 
+
+# Valores dados para autovalores y autoveectores de la matriz
+#los autovalores corresponden a la columna 0 y los autovectores a la 1 
+autovalores = Valores_Vectores[0]
+autovectores = Valores_Vectores[1]
+
+
+print("Los autovalores y autovectores son:")
+for i in range(len(Covarianza)):
+    print("\nAutovalor", i, autovalores[i], "\n   Autovector", i)
+    for j in range(len(Covarianza)):
+        print("  ", autovectores[j,i])
 
 
 # In[ ]:
