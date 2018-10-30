@@ -57,6 +57,20 @@ for i in range(len(Covarianza)):
     print("\nAutovalor", i, autovalores[i], "\n   Autovector", i)
     for j in range(len(Covarianza)):
         print("  ", autovectores[j,i])
+        
+# indices que ordenan de mayor a menor los autovalores para saber las variables mas impotantes
+orden = np.argsort(autovalores)
+# invertir el orden de los autovalores
+orden = orden[::-1]
+
+# Almacena los autovectores de manera ordenada siguiendo el orden de los autovalores 
+autovectores = autovectores[:,orden]
+
+# Componente más importante va a ser el dato mayor de cada autovector
+autovectores_copia = np.abs(autovectores)
+variables_mas_importantes = np.argmax(autovectores_copia, 0)
+#imprime los parametros mas importantes
+print("Con los 4 autovectores mayores, los parametros mas importantes (en orden) son ", variables_mas_importantes[0:4])
 
 
 # In[ ]:
