@@ -99,6 +99,15 @@ amplitud4 = (tf_r4**2 + tf_i4**2)**0.5
 #Imprime un mensaje por medio de un "print " para indicar que no se uso la herramienta fftfreq del paquete de Scipy
 print("Mensaje para indicar que no se empleo fftfreq para calcular las frecuencias")
 
+#grafica de la señal
+fig = plt.figure()
+ax = fig.gca()
+ax.plot(senal1[:,0], senal1[:,1])
+ax.set_xlabel('tiempo')
+ax.set_ylabel('Magnitud')
+ax.grid()
+fig.savefig('ApellidoNombre_signal.pdf', type='pdf')
+
 #Genera la grafica de las frecuencias y la guarda en formato PDF
 fig = plt.figure()
 ax = fig.gca()
@@ -107,10 +116,104 @@ ax.set_xlabel('Frecuencia')
 ax.set_ylabel('Magnitud')
 ax.grid()
 ax.set_xlim([-2000,2000])
-fig.savefig('DelgadoMaria_TF.pdf', type='pdf')
+fig.savefig('ApellidoNombre_TF.pdf', type='pdf')
 
 #Imprime el numero de picos de las frecuencias encontradas
 print("Hay picos de frecuencias en 35, 180, 220 y 410")
+
+#Definicion de filtros que pasan frecuencias de  corte de 1000 o 500
+def filtrar1000(f, real, imaginario):
+    if np.abs(f)>1000: # si la frecuencia es mayor a 1000, devuelvo 0
+        return 0
+    else:
+        return real + 1j*imaginario # si no devuelvo el mismo valor
+
+def filtrar500(f, real, imaginario):
+    if np.abs(f)>500: # si la frecuencia es mayor a 1000, devuelvo 0
+        return 0
+    else:
+        return real + 1j*imaginario # si no devuelvo el mismo valor
+#Se aplica el filtro solo a tres amplitudes    
+# Aplicar el filtro a cada elemento de la amplitud y se convierte en array 
+amplitud1_filtrada1000 = [filtrar1000(f1[i],tf_r1[i],tf_i1[i]) for i in range(len(f1))]
+amplitud1_filtrada1000 = np.array(amplitud1_filtrada1000)
+
+amplitud1_filtrada500 = [filtrar500(f1[i],tf_r1[i],tf_i1[i]) for i in range(len(f1))]
+amplitud1_filtrada500 = np.array(amplitud1_filtrada500)
+
+
+# Aplicar el filtro a cada elemento de la amplitud y convertirlo en array
+amplitud3_filtrada1000 = [filtrar1000(f3[i],tf_r3[i],tf_i3[i]) for i in range(len(f3))]
+amplitud3_filtrada1000 = np.array(amplitud3_filtrada1000)
+
+amplitud3_filtrada500 = [filtrar500(f3[i],tf_r3[i],tf_i3[i]) for i in range(len(f3))]
+amplitud3_filtrada500 = np.array(amplitud3_filtrada500)
+
+
+# Aplicar el filtro a cada elemento de la amplitud y convertirlo en array
+amplitud4_filtrada1000 = [filtrar1000(f4[i],tf_r4[i],tf_i4[i]) for i in range(len(f4))]
+amplitud4_filtrada1000 = np.array(amplitud4_filtrada1000)
+
+amplitud4_filtrada500 = [filtrar500(f4[i],tf_r4[i],tf_i4[i]) for i in range(len(f4))]
+amplitud4_filtrada500 = np.array(amplitud4_filtrada500)
+
+
+# trasnformada inversa de las 3 señales
+senal1_filtrada1000 = ifft(amplitud1_filtrada1000)
+senal1_filtrada500 = ifft(amplitud1_filtrada500)
+senal1_filtradax = senal1[:,0]
+
+senal3_filtrada1000 = ifft(amplitud3_filtrada1000)
+senal3_filtrada500 = ifft(amplitud3_filtrada500)
+senal3_filtradax = senal3[:,0]
+
+senal4_filtrada1000 = ifft(amplitud4_filtrada1000)
+senal4_filtrada500 = ifft(amplitud4_filtrada500)
+senal4_filtradax = senal4[:,0]
+
+
+# grafica para la primera senal filtrada que es la senal 1
+fig = plt.figure()
+ax = fig.gca()
+ax.plot(senal1_filtradax, senal1_filtrada1000.real)
+ax.set_xlabel('tiempo')
+ax.set_ylabel('Magnitud')
+ax.grid()
+ax.set_xlim([0,0.03])
+fig.savefig('DelgadoMaria_filtrada.pdf', type='pdf')
+
+#Mensaje donde se indica que no se puede hacer la transformada para lncompletos.dat
+print("En los datos incompletos no tiene sentido hacer la transformada de Fourier porque el periodo de muestreo no es constante y en consecuencia no se pueden identificar los armonicos")
+
+
+#Interpolacion de los datos 
+# grafica con los datos interpolados antes de las tres transformadas de fourier
+fig = plt.figure()
+
+fig.add_subplot(311)
+ax = fig.gca()
+ax.plot(f1, amplitud1)
+ax.set_ylabel('Magnitud')
+ax.legend(['senal'])
+ax.grid()
+
+#interpolacion cuadratica
+fig.add_subplot(312)
+ax = fig.gca()
+ax.plot(f3, amplitud3)
+ax.set_ylabel('Magnitud')
+ax.legend(['cuadrado'])
+ax.grid()
+
+#Interpolacion cubica
+fig.add_subplot(313)
+ax = fig.gca()
+ax.plot(f4, amplitud4)
+ax.set_ylabel('Magnitud')
+ax.legend(['cubico'])
+ax.grid()
+
+fig.savefig('DelgadoMaria_TF_interpola.pdf', type='pdf')
 
 
 # In[ ]:
