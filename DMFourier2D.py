@@ -55,6 +55,29 @@ arbol_absoluto = np.abs(arbol)
 #valor logaritmico de los valores absolutos de los datos
 arbol_lognormal = np.log(arbol_absoluto)
 
+#grafica que registra la transformada de fourier despues del filtrado
+fig = plt.figure()
+ax = fig.gca()
+#grafica del filtrado
+ax.imshow(arbol_lognormal)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.grid()
+ax.set_aspect('equal')
+#guarda las imagen de los datos filtrados
+fig.savefig('DelgadoMaria_FT2D_filtrada', type='pdf')
+
+#grafica de la transformada inversa de la imagen filtrada
+fig = plt.figure()
+ax = fig.gca()
+#donde se realiza la transformada
+ax.imshow(ifft2(arbol).real, cmap='gray')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.grid()
+ax.set_aspect('equal')
+fig.savefig('DelgadoMaria_filtrada', type='pdf')
+
 
 # In[ ]:
 
