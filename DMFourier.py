@@ -106,7 +106,7 @@ ax.plot(senal1[:,0], senal1[:,1])
 ax.set_xlabel('tiempo')
 ax.set_ylabel('Magnitud')
 ax.grid()
-fig.savefig('ApellidoNombre_signal.pdf', type='pdf')
+fig.savefig('DelgadoMaria_signal.pdf', type='pdf')
 
 #Genera la grafica de las frecuencias y la guarda en formato PDF
 fig = plt.figure()
@@ -116,7 +116,7 @@ ax.set_xlabel('Frecuencia')
 ax.set_ylabel('Magnitud')
 ax.grid()
 ax.set_xlim([-2000,2000])
-fig.savefig('ApellidoNombre_TF.pdf', type='pdf')
+fig.savefig('DelgadoMaria_TF.pdf', type='pdf')
 
 #Imprime el numero de picos de las frecuencias encontradas
 print("Hay picos de frecuencias en 35, 180, 220 y 410")
