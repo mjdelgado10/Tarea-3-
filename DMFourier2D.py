@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import numpy as np
@@ -18,15 +18,42 @@ arbol = fft2(img.imread('arbol.png'))
 # grafica de la transformada de Fourier del arbolito
 fig = plt.figure()
 ax = fig.gca()
-#para ploterar los valores absolutos de los datos de la transformada
+#para ploterar los datos de la transformada
 ax.imshow(np.abs(arbol))
 #ejes de las graficas
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.grid()
 ax.set_aspect('equal')
-#guarda la imagen de la transformada
+#guarda la imagen
 fig.savefig('DelgadoMaria_FT2D.pdf', type='pdf')
+
+#tamaño de la transformada
+S = np.shape(arbol)
+
+#Filtro para eliminar el ruido periodico
+
+
+#Ciclo que recorre los datos de la imagen 
+for i in range(S[0]):
+#Amplitudes donde actua el ruido periodico
+    for j in range(S[1]):
+        # Ecuacion de linea recta de la banda de arriba
+        if 13+1*i<j and j<17+1*i and i*j>100:
+            arbol[i,j] = 0.001
+            
+        # Ecuacion de linea recta de la banda de la mitad
+        if -2+1*i<j and j<2+1*i and i*j>100:
+            arbol[i,j] = 0.001
+            
+        # Ecuacion de linea recta de la banda de abajo
+        if -17+1*i<j and j<-13+1*i and i*j>100:
+            arbol[i,j] = 0.001
+#el filtrado final se obtiene como
+#valor absoluto de los datos de la imagen
+arbol_absoluto = np.abs(arbol)
+#valor logaritmico de los valores absolutos de los datos
+arbol_lognormal = np.log(arbol_absoluto)
 
 
 # In[ ]:
