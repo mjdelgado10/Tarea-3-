@@ -215,6 +215,38 @@ ax.grid()
 
 fig.savefig('DelgadoMaria_TF_interpola.pdf', type='pdf')
 
+#Diferencias entre las transformadas de fourier de la señal  normal y de sus interpolaciones 
+print("El espectro de frecuencias de la interpolacion cubica es similar al espectro de la senal original")
+print("solo que adiciona ruido de alta frecuencia.")
+print("El espectro de frecuencias de la interpolacion cuadrada tambien es similar al espectro de la senal original")
+print("pero ademas de adicionar ruido de alta frecuencia, tambien adiciona ruido de baja frecuencia y alta magnitud")
+
+
+# grafica de las señales filtradas
+fig = plt.figure()
+
+fig.add_subplot(211)
+ax = fig.gca()
+ax.plot(senal1_filtradax, senal1_filtrada1000.real)
+ax.plot(senal3_filtradax, senal3_filtrada1000.real)
+ax.plot(senal4_filtradax, senal4_filtrada1000.real)
+ax.set_ylabel('Magnitud')
+ax.legend(['1000-senal', '1000-cuadrado', '1000-cubico'])
+ax.grid()
+
+fig.add_subplot(212)
+ax = fig.gca()
+ax.plot(senal1_filtradax, senal1_filtrada500.real)
+ax.plot(senal3_filtradax, senal3_filtrada500.real)
+ax.plot(senal4_filtradax, senal4_filtrada500.real)
+ax.set_ylabel('Magnitud')
+ax.legend(['500-senal', '500-cuadrado', '500-cubico'])
+ax.grid()
+
+fig.set_size_inches(10,5)
+
+fig.savefig('DelgadoMaria_2Filtros.pdf', type='pdf')
+
 
 # In[ ]:
 
