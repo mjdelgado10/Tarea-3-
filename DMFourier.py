@@ -16,9 +16,6 @@ delimitador = ','
 senal1 = np.genfromtxt(archivo1, delimiter=delimitador, skip_header=0)
 senal2 = np.genfromtxt(archivo2, delimiter=delimitador, skip_header=0)
 
-#Grafica de la señal
-plt.plot(archivo1)
-plt.savefig("DelgadoMaria_signal.pdf")
 # nuevos datos de las interpolaciones de los datos incompletos
 nnuevo = 512
 
